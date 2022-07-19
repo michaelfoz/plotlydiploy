@@ -1,0 +1,73 @@
+<!-- 
+
+    (A line chart is created in this code in conjuction with the plot.js file.)
+
+    This file 1st downloaded in Module 12.1.2: Inspect a Plotly.js Chart 
+    https://courses.bootcampspot.com/courses/1225/pages/12-dot-1-2-inspect-a-plotly-dot-js-chart?module_item_id=498956
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Basic Charts</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="plotArea"></div>
+    <script src="plots.js"></script>
+</body>
+</html>
+
+<!-- 
+
+    Self-notes:
+    
+    (1) The 1st <script> tag links (CDN) to a file called plotly-latest.min.js, 
+        which is downloaded from an online host. 
+        This file contains the JavaScript code that makes up the Plotly library. 
+        
+    (2) Such a link is called a CDN.
+        CDN = Content Delivery Network
+        A CDN provides links to downloadable resources
+            (such as Plotly library code).
+
+    (3) <div id="plotArea"> refets to the div in which the chart will be displayed.
+        (You can also give the div another id of your choice.)
+    
+    (4) The 2nd <script> tag refers to the file named plot.js (which contains the JavaScript code).
+        
+        Inside of plot.js:
+
+            |-------------------------------------------------------------------|
+            |                                                                   |
+            |   Plotly.newPlot("plotArea", [{x: [1,2,3], y:[10,20,30]}]);       |
+            |                                                                   |
+            |-------------------------------------------------------------------|
+            (This single line of code creates the chart.)
+                Plotly.newPlot() is the method that creates the chart
+
+                The method has 2 arguments:
+                    (1) The 1st argument in Plotly, newPlot() is "plotArea."
+                        This corresponds with the ID of the <div> tag in the HTML document.
+                    
+                    (2) The 2nd argument is an array (as indicated by square [] brackets).
+                        Inside the array is an object (as notated in curly {} brackets).
+                            Inside {}, x and y are specified.
+
+                                (The x and y values are conatined inside arrays as well.)
+    
+    Example:
+        Q: In VS Code, create a JavaScript file named plots.js. 
+            In this file, write the code for a line chart with the following values. X: 5,10,15. Y: 10,20,30. 
+            The chart will be displayed in a div named plotArea. What will your code look like?
+        
+        A: Plotly.newPlot(“plotArea”, [{x:[5,10,15],y:[10,20,30]}]);
+            (Plotly.newPlot() creates a new chart in the plotArea div in the HTML. 
+            The data is in an object, which is itself wrapped inside an array.)
+
+    
+-->
