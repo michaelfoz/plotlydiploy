@@ -105,5 +105,3 @@ var cityGrowths = [
     "population": "302539"
   }
  ]
-
-console.log(cityGrowths);
