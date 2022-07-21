@@ -1,0 +1,217 @@
+<!--
+
+    Created per Module 12.3.2: Load a JSON file with D3.json()
+
+    Initially, an error pops up on the console, which states
+    a CORS requeste is needed.
+
+      Instructions to remedy the error:
+
+            What gives? What is a CORS request?
+
+                The short explanation is that, for security reasons, a local server 
+                must be run when loading an external file 
+                into a JavaScript script file. 
+            
+                (If you don't understand these security issues right now, don't worry. 
+                We will come back to it later.)
+
+            To load the page, 
+            
+            (1) navigate to the directory where samples.json and index.html, 
+                as well as the script file, plots.js, are located. 
+            
+            (2) Open the command line (Terminal or Git Bash) and type the following:
+                
+                    python -m http.server 
+
+                    (You should see the following message in the command line)
+                    Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+                    127.0.0.1 - - [30/Oct/2019 13:23:53] "GET / HTTP/1.1" 304 -)
+
+            (3) Navigate to the given port number in your browser: 
+            
+                    localhost:8000. 
+                    
+                    (localhost:8000 should appear on the address bar.)
+
+            (4) Type code into the console to filter to parse the data:
+            
+                    d3.json("samples.json").then(function(data){
+                        console.log(data);
+                    });
+            
+                    --- OR ---
+
+                    d3.json("samples.json").then(function(data){
+                        firstPerson = data.metadata[0];
+                        Object.entries(firstPerson).forEach(([key, value]) =>
+                          {console.log(key + ': ' + value);});
+                    });
+
+            IMPORTANT
+            When reading an external data file such as a CSV or JSON file into a script, you must run a server. 
+            You cannot directly open index.html with your browser.
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SpaceX API</title>
+</head>
+<body>
+  <h1>Open the console!</h1>
+  <!-- 
+  The D3.js library is downloaded from its CDN link, 
+  and loaded into the HTML file (like Plotly in the nexct <script /> tag below). 
+  (The code will be in spaceX.js.)
+
+  source: https://courses.bootcampspot.com/courses/1225/pages/12-dot-3-1-inspect-an-api-call-with-d3-dot-json?module_item_id=498991
+  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.7/d3.min.js"></script>
+  <script src="spaceX.js"></script>
+</body>
+</html>
+
+
+<!--
+
+  Self-notes:
+
+
+(1) Create a directory on computer and copy the file samples.json into it.
+(2) Create index.html and plots.js files.
+(3) Be sure to import D3.js via a CDN in the HTML file.
+(4) Use d3.json()to read samples.json into the script.
+(5) Print a simple message to browser console. (Optional?)
+(6) Run 
+    python -m http.server 
+    and open browser to the port address (likely 8000).
+(7) 
+
+read and parse the actual data. Modify the code to change the printed console message from a simple "hello" to the entire dataset:
+
+
+TYPE THIS CODE INTO THE WEB BROWSER CONSOLE TO PARSE:
+
+      d3.json("samples.json").then(function(data){
+          console.log(data);
+      });
+
+
+Upon parsing:
+      The data is structured as an object that contains three keys at the top level:
+      *Each of these keys is associated with an array that contains 153 elements.* 
+        (a) metadata array:
+            The metadata array contains objects
+            (each of which contains details of a volunteer)
+              such as: (1) age
+                       (2) location
+                       (3) ethnicity
+                       (4) ID number
+                       (5) and weekly washing frequency of the belly button
+        (b) names array:
+            the names array contains ID numbers of the volunteers
+            (even though this information is [already] included in the metadata array)
+            
+              *The names array may be useful in rapidly 
+              retrieving an ID number when creating a plot.*
+
+        (c) samples
+        |
+        |===> *Check out the samples array and inspect the first element.*
+          
+              The samples array's first element is an object, with four key-value pairs:
+                (1) the id key identifies the ID number
+                (2) The otu_ids property is an array of the ID numbers 
+                    of all the bacteria found in this person's navel:
+                        (a) OTU stands for Operational Taxonomic Unit
+                            (meaning the species/bacterial type)
+                        (b) *there are 80 bacterial types with distinct ID numbers*
+                (3) The sample_values array contains the corresponding species name 
+                    for each bacterial ID number.
+                (4) Some bacterial species have different ID numbers, 
+                    *but are clumped together under the same otu_label.*
+
+  
+  *The final visualization of the data will consist of a drop-down menu,
+  which allows the user to select an individual via ID number;
+  once the ID number is selected, demographic information
+  of the selected individual will be displayed.
+
+  Each individual is represented by an object, which means access to both
+  keys and values insidew an object is needed for the visualization.*
+  |
+  |===> (1) The Object.entries() method allows access to both an object's keys and values. 
+        It returns each key-value pair as an array.
+        |
+        |===> Example:
+          
+              Q: You are given the following object. 
+                 Use Object.entries() to print each key-value pair inside an array.
+
+                    researcher1 = {
+                        name: 'Roza',
+                        age: 34,
+                        hobby: 'Hiking'
+                    };
+
+              A: console.log(Object.entries(researcher1));
+        
+        (2) The forEach() method allows access to each element of an array.
+        |
+        |===> Example: 
+        
+              Q: Use the forEach() method to print to the console each trait and 
+                 corresponding property?
+
+              researcher1 = [['name', 'Roza'], ['age', 34], ['hobby','Hiking']];
+
+                    name Roza
+                    age 34
+                    hobby Hiking
+                
+              A: the forEach() method iterates through each element in an array. 
+                 In this case, there are smaller arrays, each including two elements, 
+                 inside an outer array. 
+              
+                To access these elements, the argument ([first, second]) is used, 
+                where first and second are arbitrarily chosen for convenience. 
+                *They could have been named ([x, y]) or ([key, value]).*
+
+              researcher1.forEach(([first, second]) => console.log(first + ": " + second));
+
+  TYPE THIS CODE IN THE WEB BROWSER CONSOLE TO PARSE:
+  
+      d3.json("samples.json").then(function(data){
+          firstPerson = data.metadata[0];
+          Object.entries(firstPerson).forEach(([key, value]) =>
+            {console.log(key + ': ' + value);});
+      });
+
+  (HOW THE CODE WORKS)
+
+        d3.json("samples.json").then(function(data){
+
+          firstPerson = data.metadata[0];
+          ===>metadata[0]--extracting the metadata of the first person in the dataset
+
+          Object.entries(firstPerson).forEach(([key, value]) =>
+          ===>Object.entries--the Object.entries() method returns each key-value pair in an array
+          ===>the forEach() method accesses each element of these pairs
+
+            {console.log(key + ': ' + value);});
+
+      });
+  
+  Upon parsing: [everything being displayed correclty]
+                [reminder: the end objective is to display the information in a dropdown menu]
+
+  https://courses.bootcampspot.com/courses/1225/pages/12-dot-3-2-load-a-json-file-with-d3-dot-json?module_item_id=498995
+
+
+-->
