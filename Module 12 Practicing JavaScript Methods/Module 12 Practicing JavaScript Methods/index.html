@@ -1,0 +1,83 @@
+<!--
+    Module 12.2.2: Practicing JavaScript Methods
+
+    https://courses.bootcampspot.com/courses/1225/pages/12-dot-2-2-practicing-javascript-methods?module_item_id=498978
+
+
+Self-notes: 
+
+(1) The <title> tag is appropriate to the chart Roza is creating: 
+    "Fast-Growing Cities 2016–2017."
+
+(2) The first <script> tag links to the Plotly CDN.
+
+(3) The <div> tag, where the Plotly chart will be displayed, is titled "bar-plot."
+
+(4) The second <script> tag links to the data file, data.js.
+
+(5) The third <script> tag links to the script file for the chart, i.e., the JavaScript code.
+
+
+    IMPORTANT
+    Always make sure that your files are linked correctly and in the right order. 
+
+    (1) Since Roza needs the Plotly CDN to use Plotly, 
+    the CDN <script> tag should come first. 
+    
+    (2) Since she will also need the data to load before using Plotly, 
+    the data file should be linked next. 
+    
+    (3) Finally, the script file is linked.
+
+-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Fast-Growing Cities 2016-2017</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <div id="bar-plot"></div>
+  <script src="data.js"></script>
+  <script src="plot.js"></script>
+</body>
+</html>
+
+<!-- 
+
+    The dataset contained in data.js:
+
+    var cityGrowths = [
+        {
+            "Rank": 1,
+            "City": "San Antonio ",
+            "State": "Texas",
+            "Increase_from_2016": "39208",
+            "population": "1511946"
+        },
+
+    ...more code...
+
+    ]
+
+
+    cityGrowths is assigned to an array of objects, each
+        containing a city + associated facts (e.g., population)
+
+    This array--although contained in a separate file-- can be acced from plot.js
+
+
+    [instructions at this time to create a separate plot.js file]
+
+    Order of events: 
+    1st, data.js was downloaded
+    2nd, index.html (this file was created)
+    3rd, plot.js will be created
+
+-->
